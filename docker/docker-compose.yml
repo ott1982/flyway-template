@@ -1,6 +1,25 @@
 version: "3.3"
 
 services:
+  flyway:
+    image: flyway/flyway:6
+    container_name: flyway_1
+    restart: "no"
+    command: migrate
+    volumes:
+      - ../sql:/flyway/sql
+      - ../conf:/flyway/conf
+      - ../drivers:/flyway/drivers
+    depends_on:
+      - postgresql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    networks:
+      - my_network
+
   postgresql:
     image: postgres:10
     restart: "no"
