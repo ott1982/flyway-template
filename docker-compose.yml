@@ -2,16 +2,13 @@ version: "3.3"
 
 services:
   flyway:
-    image: flyway/flyway:6
-    container_name: flyway_1
+    build:
+      context: .
+    image: flyway-template
     restart: "no"
     command: migrate
-    volumes:
-      - ../sql:/flyway/sql
-      - ../conf:/flyway/conf
-      - ../drivers:/flyway/drivers
     depends_on:
-      - postgresql
+      - db
     logging:
       driver: "json-file"
       options:
@@ -20,18 +17,15 @@ services:
     networks:
       - my_network
 
-  postgresql:
+  db:
     image: postgres:10
     restart: "no"
-    container_name: postgresql_1
     environment:
       POSTGRES_PASSWORD: "my_password"
       POSTGRES_USER: "my_username"
       POSTGRES_DB: "my_database"
     ports:
       - "5432:5432"
-    volumes:
-      - postgresql_1_data:/var/lib/postgresql/data
     logging:
       driver: "json-file"
       options:
@@ -39,9 +33,6 @@ services:
         max-file: "10"
     networks:
       - my_network
-
-volumes:
-  postgresql_1_data:
 
 networks:
   my_network:
