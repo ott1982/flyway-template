@@ -1,0 +1,3 @@
+CREATE TABLE MyTstTable (
+    MyColumn VARCHAR(100) NOT NULL
+);

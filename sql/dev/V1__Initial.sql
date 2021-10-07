@@ -1,3 +1,3 @@
-CREATE TABLE MyTable (
+CREATE TABLE MyDevTable (
     MyColumn VARCHAR(100) NOT NULL
 );

@@ -7,6 +7,8 @@ services:
     image: flyway-template
     restart: "no"
     command: migrate
+    environment:
+      ENVIRONMENT: "tst"
     depends_on:
       - db
     logging:
